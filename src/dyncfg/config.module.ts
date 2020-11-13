@@ -20,8 +20,8 @@ export class ConfigurationModule {
           useFactory: () => {
             // If the two useFactory() bodies look different, then ConfigurationModule is
             // is loaded twice - anything from a log line, to passing a different arg
-            // If you change filename2 ==> filename1, then it only gets loaded once
-            return new ConfigService(filename2);
+            // If you change filename2 ==> filename, then it only gets loaded once
+            return this.factory(filename2);
           },
         },
       ],
@@ -38,11 +38,23 @@ export class ConfigurationModule {
         {
           provide: CONFIGURATION_SERVICE,
           useFactory: () => {
-            return new ConfigService(filename);
+            return this.factory(filename);
           },
         },
       ],
       exports: [CONFIGURATION_SERVICE],
     };
+  }
+
+  
+  private static _cfgService: ConfigService;
+
+  private static factory(options: string) {
+      if (this._cfgService) {
+          return this._cfgService;
+      } else {
+          this._cfgService = new ConfigService(options);
+          return this._cfgService;
+      }
   }
 }
