@@ -1,15 +1,16 @@
-import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
-import { ConfigurationModule } from './dyncfg/config.module';
+import { Global, Module } from '@nestjs/common';
 import { WidgetModule } from './widget/widget.module';
+import { Widget2Module } from './widget2/widget2.module';
+import { AppService } from './app.service';
 
+@Global()
 @Module({
   imports: [
-    ConfigurationModule.forRoot('cfgfile'),
-    WidgetModule
+    Widget2Module,
+    WidgetModule,
   ],
-  providers: [
-    AppService,
-  ],
+  providers: [AppService],
+  exports: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+}

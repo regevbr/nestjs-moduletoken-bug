@@ -1,17 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { ModuleRef } from '@nestjs/core';
+import { Injectable } from '@nestjs/common';
+import { WidgetService } from './widget/widget.service';
+import { Widget2Service } from './widget2/widget2.service';
 
 @Injectable()
 export class AppService {
-  private logger = new Logger();
 
-  constructor() {
-    this.logger.log('Created AppServer');
-
-  }
-
-  async dummy() {
-    this.logger.log('`dummy()` ')
-
+  constructor(public readonly widget: WidgetService, public readonly widget2: Widget2Service) {
   }
 }

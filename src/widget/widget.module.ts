@@ -1,14 +1,15 @@
 import { Module, Scope } from '@nestjs/common';
-import { ConfigurationModule } from 'src/dyncfg/config.module';
+import { ConfigurationModule } from 'src/config/config.module';
 import { WidgetService } from './widget.service';
 
 @Module({
   imports: [
-    ConfigurationModule.forFeature('widget')
+    ConfigurationModule.forRoot('widget'),
   ],
-  providers: [ 
-    WidgetService, 
+  providers: [
+    WidgetService,
   ],
-  exports:[WidgetService]
+  exports: [WidgetService],
 })
-export class WidgetModule {}
+export class WidgetModule {
+}
